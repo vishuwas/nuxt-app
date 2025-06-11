@@ -7,7 +7,14 @@
 
 <script setup>
 const route = useRoute();
-const { data: post } = await useFetch(
-  `https://dummyjson.com/posts/${route.params.id}`
-);
+
+const {
+  data: post,
+  pending,
+  error,
+} = await useFetch(`https://dummyjson.com/posts/${route.params.id}`, {
+  server: true,
+  key: `post-${route.params.id}`,
+  cache: { maxAge: 60 * 15 },
+});
 </script>
